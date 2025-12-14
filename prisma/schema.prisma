@@ -13,12 +13,21 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  Student
+  Faculty
+  Institute
+  Ngo
+  Admin
+}
 model User {
-  id    Int     @id @default(autoincrement())
+  id    String    @id @default(cuid())
   email String  @unique
-  fname  String?
-  lname  String?
+  fullname String?
+  phone String? @unique
   password String
+   refreshToken  String?
+  role  Role    @default(Student)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
