@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Patch, Delete, Body, Param, HttpException, HttpStatus } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
+import { UsersService } from './users.service.js';
+import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto.js';
 
 @Controller('users')
 export class UsersController {
@@ -33,7 +33,7 @@ export class UsersController {
     @Get(':id')
     async findOne(@Param('id') id: string) {
         try {
-            const user = await this.usersService.getUserById(id);
+            const user = await this.usersService.getUserById(+id);
             if (!user) {
                 throw new HttpException('User not found', HttpStatus.NOT_FOUND);
             }
@@ -50,7 +50,7 @@ export class UsersController {
     @Patch(':id')
     async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
         try {
-            return await this.usersService.updateUser(id, updateUserDto);
+            return await this.usersService.updateUser(+id, updateUserDto);
         } catch (error) {
             throw new HttpException(
                 error.message || 'Failed to update user',
@@ -62,7 +62,7 @@ export class UsersController {
     @Delete(':id')
     async remove(@Param('id') id: string) {
         try {
-            return await this.usersService.deleteUser(id);
+            return await this.usersService.deleteUser(+id);
         } catch (error) {
             throw new HttpException(
                 error.message || 'Failed to delete user',

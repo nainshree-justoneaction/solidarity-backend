@@ -8,15 +8,9 @@ async function main() {
         update: {},
         create: {
             email: 'test@example.com',
-            name: 'Test User',
+            fname: 'Test',
+            lname: 'User',
             password: 'password123', // In a real app, hash this!
-            role: 'student',
-            profile: {
-                create: {
-                    bio: 'I am a test student',
-                    interests: 'Coding, Learning',
-                },
-            },
         },
     });
 
